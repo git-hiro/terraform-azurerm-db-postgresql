@@ -1,0 +1,7 @@
+# directories
+.terraform
+
+# files
+.DS_Store
+*.tfstate
+*.tfstate.backup
