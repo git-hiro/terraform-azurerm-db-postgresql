@@ -9,11 +9,21 @@ locals {
     local.sku_tier_short == "GP" ? "GeneralPurpose" : 
     local.sku_tier_short == "MO" ? "MemoryOptimized" : 
     ""}"
+
+}
+
+terraform {
+  backend "azurerm" {}
+}
+
+resource "azurerm_resource_group" "resourecegroup" {
+  name     = "${var.psql["resource_group_name"]}"
+  location = "North Europe"
 }
 
 resource "azurerm_postgresql_server" "psql" {
-  resource_group_name = "${var.psql["resource_group_name"]}"
-
+  #resource_group_name = "${var.psql["resource_group_name"]}"
+  resource_group_name = "${azurerm_resource_group.resourecegroup.name}"
   name     = "${var.psql["name"]}"
   location = "${var.psql["location"]}"
 
